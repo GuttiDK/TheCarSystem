@@ -1,31 +1,42 @@
-﻿using CarSystem.Models;
+﻿using CarSystem.Data;
+using Microsoft.Extensions.DependencyInjection;
+using CarSystem.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace CarSystem.View
 {
-    class CarSystem
+    public class CarSystem
     {
-        public static void CarSystems()
+        public static void Main(string[] args)
         {
+            var services = new ServiceCollection()
+            .AddSingleton<ICarParking, CarParking>()
+            .BuildServiceProvider();
+
+            CarParking carParking = new CarParking(services.GetRequiredService<ICarParking>());
+
             bool runTime = true;
             while (runTime == true)
             {
                 CarSystemMenu();
                 try
                 {
-                    switch (InputString("Insert here: "))
+                    var input = Console.ReadKey();
+                    switch (input.Key)
                     {
-                        case "1":
-                            CarParking.CarParking();
+                        case ConsoleKey.P:
+                            GetAllParkingSpots(carParking);
                             break;
-                        case "2":
-                            CarWash.CarWash();
+                        case ConsoleKey.S:
                             break;
-                        case "x":
+                        case ConsoleKey.X:
                             runTime = false;
                             break;
                         default:
@@ -41,15 +52,55 @@ namespace CarSystem.View
             }
         }
 
+
+        public static void BuyParkingSpace(CarParking carParking)
+        {
+            Console.WriteLine("");
+
+        }
+
+        public static void GetAllParkingSpots(CarParking carSystems)
+        {
+            if (carSystems.GetParkingSpots().Count == 0)
+            {
+                Console.WriteLine("\nNo parking spots");
+                Console.WriteLine("Press any key to continue");
+                Console.ReadKey();
+                return;
+            }
+            else
+            {
+                Console.WriteLine("|----------------------------------|");
+                foreach (var parkingSpot in carSystems.GetParkingSpots())
+                {
+                    Console.WriteLine($"| {parkingSpot.Id} | {parkingSpot.Name} | {parkingSpot.Type} | {parkingSpot.IsOccupied} |");
+                }
+                Console.WriteLine("|----------------------------------|");
+                Console.WriteLine("Press any key to continue");
+                Console.ReadKey();
+            }
+        }
+
+
+        /// <summary>
+        /// Car
         public static void CarSystemMenu()
         {
-            Console.WriteLine(" ----------------------------------");
+            Console.Clear();
+            Console.WriteLine("|----------------------------------|");
+            Console.WriteLine("|                                  |");
             Console.WriteLine("| You can chose the following:     |");
-            Console.WriteLine("| p = Car Parking                  |");
-            Console.WriteLine("| w = Car Wash                     |");
-            Console.WriteLine("| ");
+            Console.WriteLine("| p = Start Parking                |");
+            Console.WriteLine("| s = Stop Parking                 |");
+            Console.WriteLine("|                                  |");
+            Console.WriteLine("| w = Start Washing Car            |");
+            Console.WriteLine("|                                  |");
+            Console.WriteLine("| r = Show Prices and Lots         |");
+            Console.WriteLine("|                                  |");
+            Console.WriteLine("| You can leave by following:      |");
             Console.WriteLine("| x = Exit                         |");
-            Console.WriteLine(" ----------------------------------");
+            Console.WriteLine("|----------------------------------|");
+            Console.Write("Please choose an option: ");
         }
 
         /// <summary>
@@ -77,21 +128,25 @@ namespace CarSystem.View
         /// </summary>
         /// <param name="text"></param>
         /// <returns>int</returns>
-        static int InputInt(string text)
+        static int InputInt(string text, string error)
         {
-            int value;
-            while (true)
+            if (error == null)
+            {
+                error = "Wrong input";
+            }
+            int output;
+            bool isValid = false;
+            do
             {
                 Console.Write(text);
-                try
+                isValid = int.TryParse(Console.ReadLine(), out output);
+                if (isValid)
                 {
-                    return value = Convert.ToInt32(Console.ReadLine());
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
+                    Console.WriteLine(error);
                 }
             }
+            while (!isValid);
+            return output;
         }
 
         /// <summary>
@@ -99,22 +154,27 @@ namespace CarSystem.View
         /// </summary>
         /// <param name="text"></param>
         /// <returns>demical</returns>
-        static decimal InputDecimal(string text)
+        static decimal InputDecimal(string text, string error)
         {
-            decimal value;
-            while (true)
+            if (error == null)
+            {
+                error = "Wrong input";
+            }
+            decimal output;
+            bool isValid = false;
+            do
             {
                 Console.Write(text);
-                try
+                isValid = decimal.TryParse(Console.ReadLine(), out output);
+                if (isValid)
                 {
-                    return value = Convert.ToDecimal(Console.ReadLine());
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                    throw;
+                    Console.WriteLine(error);
                 }
             }
+            while (!isValid);
+            return output;
         }
+
     }
 }
+
