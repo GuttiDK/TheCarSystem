@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 namespace CarSystem.Data
 {
     public interface ICarParking
-    {
-        public List<ParkingSpot> GetParkingSpots();
+    { 
+        public void CreateParkingSpace(Car car);
+        public List<AlmindeligSpot> GetAlmindeligSpot();
+        public List<Car> GetCars();
     }
 }

@@ -12,12 +12,12 @@ using System.Threading.Tasks;
 
 namespace CarSystem.View
 {
-    public class CarSystem
+    public class Program
     {
         public static void Main(string[] args)
         {
             var services = new ServiceCollection()
-            .AddSingleton<ICarParking, CarParking>()
+            .AddSingleton<ICarParking, CarMethods>()
             .BuildServiceProvider();
 
             CarParking carParking = new CarParking(services.GetRequiredService<ICarParking>());
@@ -32,9 +32,11 @@ namespace CarSystem.View
                     switch (input.Key)
                     {
                         case ConsoleKey.P:
-                            GetAllParkingSpots(carParking);
+                            carParking.CreateParkingSpace(new Car(InputString("Input your licenseplate: "), CreateSpotMenu()));
                             break;
                         case ConsoleKey.S:
+                            Console.WriteLine("You have " + carParking.GetAlmindeligSpot().Count() + " parking spots left");
+                            Console.ReadKey();
                             break;
                         case ConsoleKey.X:
                             runTime = false;
@@ -53,33 +55,7 @@ namespace CarSystem.View
         }
 
 
-        public static void BuyParkingSpace(CarParking carParking)
-        {
-            Console.WriteLine("");
 
-        }
-
-        public static void GetAllParkingSpots(CarParking carSystems)
-        {
-            if (carSystems.GetParkingSpots().Count == 0)
-            {
-                Console.WriteLine("\nNo parking spots");
-                Console.WriteLine("Press any key to continue");
-                Console.ReadKey();
-                return;
-            }
-            else
-            {
-                Console.WriteLine("|----------------------------------|");
-                foreach (var parkingSpot in carSystems.GetParkingSpots())
-                {
-                    Console.WriteLine($"| {parkingSpot.Id} | {parkingSpot.Name} | {parkingSpot.Type} | {parkingSpot.IsOccupied} |");
-                }
-                Console.WriteLine("|----------------------------------|");
-                Console.WriteLine("Press any key to continue");
-                Console.ReadKey();
-            }
-        }
 
 
         /// <summary>
@@ -173,6 +149,31 @@ namespace CarSystem.View
             }
             while (!isValid);
             return output;
+        }
+
+        /// <summary>
+        /// Writeline and readline returning a accounttype
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns>list</returns>
+        public static CarType CreateSpotMenu()
+        {
+            do
+            {
+                switch (InputInt("1 = Almindelig\n2 = Handicap\n3 = Bus \n4 = Free\nInsert accounttype: ", "Wrong input"))
+                {
+                    case 1:
+                        return CarType.Almindelig;
+                        case 2:
+                            return CarType.Handicap;
+                        case 3:
+                            return CarType.Bus;
+                        case 4:
+                            return CarType.Free;
+                    default:
+                        break;
+                }
+            } while (true);
         }
 
     }
