@@ -12,5 +12,12 @@ namespace CarSystem.Data
         public void CreateParkingSpace(Car car);
         public List<AlmindeligSpot> GetAlmindeligSpot();
         public List<Car> GetCars();
+        public CarType CreateSpotMenu();
+        public void CarSystemMenu();
+
+
+        public string InputString(string message);
+        public int InputInt(string text, string error);
+        public decimal InputDecimal(string text, string error);
     }
 }

@@ -20,6 +20,12 @@ namespace CarSystem.Data
         }
 
 
+
+        public void CarSystemMenu()
+        {
+            _repo.CarSystemMenu();
+        }
+
         public void CreateParkingSpace(Car car)
         {
             _repo.CreateParkingSpace(car);
@@ -34,5 +40,32 @@ namespace CarSystem.Data
         {
             return _repo.GetCars();
         }
+
+        public CarType CreateSpotMenu()
+        {
+            return _repo.CreateSpotMenu();
+        }
+        
+
+
+
+        /// <summary>
+        /// Inputs a value and returns it
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public string InputString(string message)
+        {
+            return _repo.InputString(message);
+        }
+        public int InputInt(string text, string error)
+        {
+            return _repo.InputInt(text, error);
+        }
+        public decimal InputDecimal(string text, string error)
+        {
+            return _repo.InputDecimal(text, error);
+        }
+
     }
 }

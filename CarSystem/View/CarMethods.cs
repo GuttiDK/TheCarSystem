@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,7 +38,6 @@ namespace CarSystem.View
             _idCounter++;
         }
 
-
         public List<AlmindeligSpot> GetAlmindeligSpot()
         {
             return _almindelig;
@@ -45,7 +45,14 @@ namespace CarSystem.View
 
         public List<Car> GetCars()
         {
-            return _cars;
+            if (_cars.Count() == 0)
+            {
+                throw new Exception("Der er ingen biler i systemet");
+            }
+            else
+            {
+                return _cars;
+            }
         }
 
         /// <summary>
@@ -53,6 +60,7 @@ namespace CarSystem.View
         /// </summary>
         /// <param name="car"></param>
         public void CreateParkingSpace(Car car)
+        
         {
             if (car != null)
             {
@@ -77,10 +85,68 @@ namespace CarSystem.View
                     _free.Add(new FreeSpot(_idCounter++, ("P" + _idCounter++), car));
                 }
             }
-
-
-
         }
+
+
+
+
+        /// <summary>
+        /// Her sender den menupunktet tilbage
+        /// </summary>
+        public void CarSystemMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("|----------------------------------|");
+            Console.WriteLine("|                                  |");
+            Console.WriteLine("| You can chose the following:     |");
+            Console.WriteLine("| p = Start Parking                |");
+            Console.WriteLine("| s = Stop Parking                 |");
+            Console.WriteLine("|                                  |");
+            Console.WriteLine("| w = Start Washing Car            |");
+            Console.WriteLine("|                                  |");
+            Console.WriteLine("| r = Show Prices and Lots         |");
+            Console.WriteLine("|                                  |");
+            Console.WriteLine("| You can leave by following:      |");
+            Console.WriteLine("| x = Exit                         |");
+            Console.WriteLine("|----------------------------------|");
+            Console.Write("Please choose an option: ");
+        }
+
+
+        /// <summary>
+        /// Writeline and readline returning a cartype
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns>list</returns>
+        public CarType CreateSpotMenu()
+        {
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("|----------------------------------|");
+                Console.WriteLine("|                                  |");
+                Console.WriteLine("| You can chose the following:     |");
+                Console.WriteLine("| 1 = Almindelig                   |");
+                Console.WriteLine("| 2 = Handicap                     |");
+                Console.WriteLine("| 3 = Bus                          |");
+                Console.WriteLine("|                                  |");
+                Console.WriteLine("|----------------------------------|");
+                switch (InputInt("Please choose an option: ", "Wrong input"))
+                {
+                    case 1:
+                        return CarType.Almindelig;
+                    case 2:
+                        return CarType.Handicap;
+                    case 3:
+                        return CarType.Bus;
+                    case 4:
+                        return CarType.Free;
+                    default:
+                        break;
+                }
+            } while (true);
+        }
+
 
         /// <summary>
         /// Her finder den bilen ud fra licenspladen
@@ -117,5 +183,86 @@ namespace CarSystem.View
                 throw new Exception("No car found");
             }
         }
+
+        public void CreateParkingSpace()
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+
+        /// <summary>
+        /// Input vaules
+        /// </summary>
+
+        /// <summary>
+        /// Writeline and readline returning string
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns>string</returns>
+        public string InputString(string text)
+        {
+            while (true)
+            {
+                Console.Write(text);
+                string input = Console.ReadLine();
+                if (input.Length > 0)
+                    return input;
+            }
+        }
+
+        /// <summary>
+        /// Writeline and readline returning int
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns>int</returns>
+        public int InputInt(string text, string error)
+        {
+            if (error == null)
+            {
+                error = "Wrong input";
+            }
+            int output;
+            bool isValid = false;
+            do
+            {
+                Console.Write(text);
+                isValid = int.TryParse(Console.ReadLine(), out output);
+                if (isValid)
+                {
+                    Console.WriteLine(error);
+                }
+            }
+            while (!isValid);
+            return output;
+        }
+
+        /// <summary>
+        /// Writeline and readline returning only demical
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns>demical</returns>
+        public decimal InputDecimal(string text, string error)
+        {
+            if (error == null)
+            {
+                error = "Wrong input";
+            }
+            decimal output;
+            bool isValid = false;
+            do
+            {
+                Console.Write(text);
+                isValid = decimal.TryParse(Console.ReadLine(), out output);
+                if (isValid)
+                {
+                    Console.WriteLine(error);
+                }
+            }
+            while (!isValid);
+            return output;
+        }
+
     }
 }
