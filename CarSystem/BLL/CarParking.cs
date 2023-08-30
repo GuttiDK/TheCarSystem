@@ -11,15 +11,12 @@ namespace CarSystem.BLL
 {
     public class CarParking
     {
-        private readonly string _name;
         private readonly ICarParking _repo;
 
         public CarParking(ICarParking repo)
         {
-            _name = "CarSystem";
             _repo = repo;
         }
-
 
 
         public void CarSystemMenu()
@@ -32,47 +29,36 @@ namespace CarSystem.BLL
             _repo.Pay();
         }
 
-        public void CreateParkingSpace(Car car)
+        public void CreateParkingSpace()
         {
-            _repo.CreateParkingSpace(car);
+            _repo.CreateParkingSpace();
         }
 
+
+
+        /// <summary>
+        /// Tager imod parkeringspladser
+        /// </summary>
         public void GetAlmindeligSpot()
         {
             _repo.GetAlmindeligSpot();
         }
-
         public void GetHandicapSpot()
         {
             _repo.GetHandicapSpot();
         }
-
         public void GetBusSpot()
         {
             _repo.GetBusSpot();
         }
-
         public void GetElseSpot()
         {
             _repo.GetElseSpot();
         }
-
         public void ParkingSpots()
         {
-            _repo.ParkingSpots();
+            _repo.GetParkingSpots();
         }
-
-        public List<Car> GetCars()
-        {
-            return _repo.GetCars();
-        }
-
-        public CarType CreateSpotMenu()
-        {
-            return _repo.CreateSpotMenu();
-        }
-
-
 
 
         /// <summary>

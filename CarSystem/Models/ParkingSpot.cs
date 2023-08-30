@@ -44,7 +44,6 @@ namespace CarSystem.Models
             Price = 50;
             IsOccupied = true;
             car.ParkingPrice = Price;
-            car.IsParked = true;
         }
     }
 
@@ -54,6 +53,8 @@ namespace CarSystem.Models
         {
             Type = ParkingType.Handicap;
             Price = 150;
+            IsOccupied = true;
+            car.ParkingPrice = Price;
         }
     }
 
@@ -63,6 +64,8 @@ namespace CarSystem.Models
         {
             Type = ParkingType.Bus;
             Price = 250;
+            IsOccupied = true;
+            car.ParkingPrice = Price;
         }
     }
 
@@ -72,6 +75,8 @@ namespace CarSystem.Models
         {
             Type = ParkingType.Else;
             Price = 100;
+            IsOccupied = true;
+            car.ParkingPrice = Price;
         }
     }
 }
