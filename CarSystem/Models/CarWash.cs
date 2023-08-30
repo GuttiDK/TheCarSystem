@@ -18,7 +18,7 @@ namespace CarSystem.Models
         KlarTilNæste
     }
 
-    public class CarWash 
+    public abstract class CarWash 
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -26,13 +26,14 @@ namespace CarSystem.Models
         public decimal Price { get; set; }
         public List<Wash> ActiveWash { get; set; } = new List<Wash>();
 
-    public CarWash(int id, string name, int washlots, Car car)
+    public CarWash(int id, string name, Car car)
         {
             Id = id;
             Name = name;
             CurrentVehicle = car;
         }
     }
+
 
     public class Wash
     {

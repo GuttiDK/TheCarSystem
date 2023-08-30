@@ -1,4 +1,5 @@
-﻿using CarSystem.Models;
+﻿using CarSystem.Data;
+using CarSystem.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarSystem.Data
+namespace CarSystem.BLL
 {
     public class CarParking
     {
@@ -26,14 +27,39 @@ namespace CarSystem.Data
             _repo.CarSystemMenu();
         }
 
+        public void Pay()
+        {
+            _repo.Pay();
+        }
+
         public void CreateParkingSpace(Car car)
         {
             _repo.CreateParkingSpace(car);
         }
 
-        public List<AlmindeligSpot> GetAlmindeligSpot()
+        public void GetAlmindeligSpot()
         {
-            return _repo.GetAlmindeligSpot();
+            _repo.GetAlmindeligSpot();
+        }
+
+        public void GetHandicapSpot()
+        {
+            _repo.GetHandicapSpot();
+        }
+
+        public void GetBusSpot()
+        {
+            _repo.GetBusSpot();
+        }
+
+        public void GetElseSpot()
+        {
+            _repo.GetElseSpot();
+        }
+
+        public void ParkingSpots()
+        {
+            _repo.ParkingSpots();
         }
 
         public List<Car> GetCars()
@@ -45,7 +71,7 @@ namespace CarSystem.Data
         {
             return _repo.CreateSpotMenu();
         }
-        
+
 
 
 
