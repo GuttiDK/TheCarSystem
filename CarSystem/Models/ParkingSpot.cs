@@ -12,43 +12,45 @@ namespace CarSystem.Models
         Almindelig,
         Handicap,
         Bus,
-        Free
+        Else
     }
 
     public abstract class ParkingSpot
     {
+        private static int _idCounter = 1;
         public int Id { get; set; }
         public string Name { get; set; }
         public ParkingType Type { get; set; }
         public bool IsOccupied { get; set; } = false;
-        public int Price { get; set; }
+        public decimal Price { get; set; }
         public Car CurrentVehicle { get; set; }
-        public int NumberOfParkingLots { get; set; }
 
 
 
 
-        public ParkingSpot(int id, string name, Car car)
+        public ParkingSpot(string name, Car car)
         {
-            Id = id;
+            Id = _idCounter++;
             Name = name;
             CurrentVehicle = car;
-            NumberOfParkingLots = 20;
         }
     }
 
     public class AlmindeligSpot : ParkingSpot
     {
-        public AlmindeligSpot(int id, string name, Car car) : base(id, name, car)
+        public AlmindeligSpot(string name, Car car) : base(name, car)
         {
             Type = ParkingType.Almindelig;
             Price = 50;
+            IsOccupied = true;
+            car.ParkingPrice = Price;
+            car.IsParked = true;
         }
     }
 
     public class HandicapSpot : ParkingSpot
     {
-        public HandicapSpot(int id, string name, Car car) : base(id, name, car)
+        public HandicapSpot(string name, Car car) : base(name, car)
         {
             Type = ParkingType.Handicap;
             Price = 150;
@@ -57,19 +59,19 @@ namespace CarSystem.Models
 
     public class BusSpot : ParkingSpot
     {
-        public BusSpot(int id, string name, Car car) : base(id, name, car)
+        public BusSpot(string name, Car car) : base(name, car)
         {
             Type = ParkingType.Bus;
             Price = 250;
         }
     }
 
-    public class FreeSpot : ParkingSpot
+    public class ElseSpot : ParkingSpot
     {
-        public FreeSpot(int id, string name, Car car) : base(id, name, car)
+        public ElseSpot(string name, Car car) : base(name, car)
         {
-            Type = ParkingType.Free;
-            Price = 0;
+            Type = ParkingType.Else;
+            Price = 100;
         }
     }
 }

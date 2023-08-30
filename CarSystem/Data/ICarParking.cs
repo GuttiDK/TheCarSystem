@@ -10,10 +10,15 @@ namespace CarSystem.Data
     public interface ICarParking
     { 
         public void CreateParkingSpace(Car car);
-        public List<AlmindeligSpot> GetAlmindeligSpot();
+        public void GetAlmindeligSpot();
+        public void GetHandicapSpot();
+        public void GetBusSpot();
+        public void GetElseSpot();
+        public void ParkingSpots();
         public List<Car> GetCars();
         public CarType CreateSpotMenu();
         public void CarSystemMenu();
+        public void Pay();
 
 
         public string InputString(string message);

@@ -12,12 +12,12 @@ namespace CarSystem.Models
         Almindelig,
         Handicap,
         Bus,
-        Free
+        Else
     }
 
     public class Car
     {
-        private static int _idCounter = 0;
+        private static int _idCounter = 1;
         public int Id { get; set; }
         public string LicensePlate { get; set; }
         public CarType Type { get; set; }
