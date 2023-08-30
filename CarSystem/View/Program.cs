@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using CarSystem.BLL;
+using CarSystem.Controllers;
 
 namespace CarSystem.View
 {
@@ -39,7 +40,7 @@ namespace CarSystem.View
                     switch (input.Key)
                     {
                         case ConsoleKey.P:
-                            carParking.CreateParkingSpace(new Car(carParking.InputString("\nInput your licenseplate: "), carParking.CreateSpotMenu()));
+                            carParking.CreateParkingSpace();
                             break;
                         case ConsoleKey.W:
                             break;
@@ -80,10 +81,12 @@ namespace CarSystem.View
                 Console.WriteLine("|----------------------------------|");
                 Console.WriteLine("|                                  |");
                 Console.WriteLine("| You can chose the following:     |");
-                Console.WriteLine("| 1 = Almindelig                   |");
-                Console.WriteLine("| 2 = Handicap                     |");
-                Console.WriteLine("| 3 = Bus                          |");
-                Console.WriteLine("| 4 = Else                         |");
+                Console.WriteLine("| a = Almindelig                   |");
+                Console.WriteLine("| h = Handicap                     |");
+                Console.WriteLine("| b = Bus                          |");
+                Console.WriteLine("| e = Else                         |");
+                Console.WriteLine("|                                  |");
+                Console.WriteLine("| You can see all by pressing:     |");
                 Console.WriteLine("| 5 = All                          |");
                 Console.WriteLine("|                                  |");
                 Console.WriteLine("| You can go back by pressing:     |");
@@ -94,31 +97,24 @@ namespace CarSystem.View
                 var input = Console.ReadKey();
                 switch (input.Key)
                 {
-                    case ConsoleKey.D1:
+                    case ConsoleKey.A:
                         Console.WriteLine("\nCar in the parking lot:");
                         carParking.GetAlmindeligSpot();
-                        runtime = false;
                         break;
-                    case ConsoleKey.D2:
+                    case ConsoleKey.H:
                         Console.WriteLine("\nCars in the parking lot:");
                         carParking.GetHandicapSpot();
-                        Console.ReadKey();
-                        runtime = false;
                         break;
-                    case ConsoleKey.D3:
+                    case ConsoleKey.B:
                         Console.WriteLine("\nCars in the parking lot:");
                         carParking.GetBusSpot();
                         break;
-                    case ConsoleKey.D4:
+                    case ConsoleKey.E:
                         Console.WriteLine("\nCars in the parking lot:");
                         carParking.GetElseSpot();
-                        Console.ReadKey();
                         break;
                     case ConsoleKey.D5:
-                        Console.WriteLine("\nCars in the parking lot:");
                         carParking.ParkingSpots();
-                        Console.ReadKey();
-                        runtime = false;
                         break;
                     case ConsoleKey.D0:
                         runtime = false;

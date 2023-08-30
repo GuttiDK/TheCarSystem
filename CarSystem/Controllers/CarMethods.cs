@@ -9,7 +9,7 @@ using CarSystem.BLL;
 using CarSystem.Data;
 using CarSystem.Models;
 
-namespace CarSystem.View
+namespace CarSystem.Controllers
 {
     public class CarMethods : ICarParking, ICarWash
     {
@@ -21,7 +21,7 @@ namespace CarSystem.View
         int _idCounter;
         List<Car> _cars;
         List<ParkingSpot> _parkingSpots;
-       
+
         List<AlmindeligSpot> _almindelig;
         List<HandicapSpot> _handicap;
         List<BusSpot> _bus;
@@ -41,11 +41,15 @@ namespace CarSystem.View
             _idCounter++;
         }
 
+
+        /// <summary>
+        /// This method is the menu for the car system
+        /// </summary>
         public void GetAlmindeligSpot()
         {
             if (_almindelig.Count() == 0)
             {
-                Console.WriteLine($"\nDer er {_almindelig.Count()} almindelige pladser i systemet");
+                Console.WriteLine($"There are {_almindelig.Count()}/{_almindeligMax - _almindelig.Count()} normal spots in the system");
             }
             else
             {
@@ -61,7 +65,7 @@ namespace CarSystem.View
         {
             if (_handicap.Count() == 0)
             {
-                Console.WriteLine($"Der er {_handicap.Count()} handicap pladser i systemet");
+                Console.WriteLine($"There are {_handicap.Count()}/{_handicapMax - _handicap.Count()} handicap spots in the system");
             }
             else
             {
@@ -70,14 +74,14 @@ namespace CarSystem.View
                     Console.WriteLine($"Licenseplate: {car.CurrentVehicle.LicensePlate} - Type: {car.CurrentVehicle.Type} - Price: {car.CurrentVehicle.TotalPrice} - {car.CurrentVehicle.ParkingPrice} - {car.Price} - ParkingID {car.Name} - CarID: {car.CurrentVehicle.Id} Parking: {car.IsOccupied} - {car.CurrentVehicle.IsParked}");
                 }
             }
+            Console.ReadKey();
         }
 
         public void GetBusSpot()
         {
             if (_bus.Count() == 0)
             {
-                Console.WriteLine($"\nDer er {_bus.Count()} bus pladser i systemet");
-                throw new Exception("Der er ingen bus pladser i systemet");
+                Console.WriteLine($"There are {_bus.Count()}/{_busMax - _bus.Count()} bus spots in the system");
             }
             else
             {
@@ -86,15 +90,14 @@ namespace CarSystem.View
                     Console.WriteLine($"Licenseplate: {car.CurrentVehicle.LicensePlate} - Type: {car.CurrentVehicle.Type} - Price: {car.CurrentVehicle.TotalPrice} - {car.CurrentVehicle.ParkingPrice} - {car.Price} - ParkingID {car.Name} - CarID: {car.CurrentVehicle.Id} Parking: {car.IsOccupied} - {car.CurrentVehicle.IsParked}");
                 }
             }
+            Console.ReadKey();
         }
 
         public void GetElseSpot()
         {
             if (_else.Count() == 0)
             {
-                Console.WriteLine($"\nDer er {_else.Count()} andre pladser i systemet");
-                throw new Exception("Der er ingen andre pladser i systemet");
-                Console.ReadKey();
+                Console.WriteLine($"There are {_else.Count()}/{_elseMax - _else.Count()} other spots in the system");
             }
             else
             {
@@ -102,33 +105,35 @@ namespace CarSystem.View
                 {
                     Console.WriteLine($"Licenseplate: {car.CurrentVehicle.LicensePlate} - Type: {car.CurrentVehicle.Type} - Price: {car.CurrentVehicle.TotalPrice} - {car.CurrentVehicle.ParkingPrice} - {car.Price} - ParkingID {car.Name} - CarID: {car.CurrentVehicle.Id} Parking: {car.IsOccupied} - {car.CurrentVehicle.IsParked}");
                 }
-                Console.ReadKey();
-            }
-        }
-
-        public void ParkingSpots()
-        {
-            if (_parkingSpots.Count() == 0)
-            {
-                Console.WriteLine($"\nDer er {_parkingSpots.Count()} pladser i systemet");
-            }
-            else
-            {
-                foreach (var car in _parkingSpots)
-                {
-                    Console.WriteLine($"Licenseplate: {car.CurrentVehicle.LicensePlate} - Type: {car.CurrentVehicle.Type} - Price: {car.CurrentVehicle.TotalPrice} - {car.CurrentVehicle.ParkingPrice} - {car.Price} - ParkingID {car.Name} - CarID: {car.CurrentVehicle.Id} Parking: {car.IsOccupied} - {car.CurrentVehicle.IsParked}");
-                }
             }
             Console.ReadKey();
         }
 
-        
+        public void GetParkingSpots()
+        {
+            Console.Clear();
+            Console.WriteLine("----------------------------------");
+            Console.WriteLine("");
+            Console.WriteLine(" Cars in the parking lot:");
+            Console.WriteLine("");
+            Console.WriteLine($" There are {_almindelig.Count()}/{_almindeligMax - _almindelig.Count()} normal spots");
+            Console.WriteLine($" There are {_handicap.Count()}/{_handicapMax - _handicap.Count()} handicap spots");
+            Console.WriteLine($" There are {_bus.Count()}/{_busMax - _bus.Count()} bus spots");
+            Console.WriteLine($" There are {_else.Count()}/{_elseMax - _else.Count()} other spots");
+            Console.WriteLine("");
+            Console.WriteLine($" There are {_almindelig.Count() + _handicap.Count() + _bus.Count() + _else.Count()}/{_almindeligMax + _handicapMax + _busMax + _elseMax - (_almindelig.Count() + _handicap.Count() + _bus.Count() + _else.Count())} spots in total");
+            Console.WriteLine("");
+            Console.WriteLine("----------------------------------");
+            Console.ReadKey();
+        }
+
+
 
         public List<Car> GetCars()
         {
             if (_cars.Count() == 0)
             {
-                throw new Exception("Der er ingen biler i systemet");
+                throw new Exception("There are no spots in the system");
             }
             else
             {
@@ -140,35 +145,41 @@ namespace CarSystem.View
         /// Her finder den bilen ud fra licenspladen
         /// </summary>
         /// <param name="car"></param>
-        public void CreateParkingSpace(Car car)
-
+        public void CreateParkingSpace()
         {
+            Car car = new(InputString("\nInput your licenseplate: "), CreateSpotMenu());
             if (car != null)
             {
-                if (car.Type == CarType.Almindelig && _almindelig.Count() < _almindeligMax)
+
+                car.IsParked = true;
+                if (car.Type == CarType.Almindelig)
                 {
-                    car.IsParked = true;
-                    _almindelig.Add(new AlmindeligSpot(("P" + _idCounter++), car));
+                    _almindelig.Add(new AlmindeligSpot("P" + _idCounter++, car));
                 }
-                if (car.Type == CarType.Handicap && _handicap.Count() < _handicapMax)
+
+                if (car.Type == CarType.Handicap)
                 {
-                    car.IsParked = true;
-                    _handicap.Add(new HandicapSpot(("P" + _idCounter++), car));
+                    _handicap.Add(new HandicapSpot("P" + _idCounter++, car));
                 }
-                if (car.Type == CarType.Bus && _bus.Count() < _busMax)
+
+                if (car.Type == CarType.Bus)
                 {
-                    car.IsParked = true;
-                    _bus.Add(new BusSpot(("P" + _idCounter++), car));
+                    _bus.Add(new BusSpot("P" + _idCounter++, car));
                 }
-                if (car.Type == CarType.Else && _else.Count() < _elseMax)
+
+                if (car.Type == CarType.Else)
                 {
-                    car.IsParked = true;
-                    _else.Add(new ElseSpot(("P" + _idCounter++), car));
+                    _else.Add(new ElseSpot("P" + _idCounter++, car));
                 }
             }
+
         }
 
-
+        /// <summary>
+        /// Paying for parking or washing or both
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns>list</returns>
         public void Pay()
         {
             bool runtime = true;
@@ -227,6 +238,9 @@ namespace CarSystem.View
             }
         }
 
+
+
+
         /// <summary>
         /// Her sender den menupunktet tilbage
         /// </summary>
@@ -250,8 +264,6 @@ namespace CarSystem.View
             Console.WriteLine("|----------------------------------|");
             Console.Write("Please choose an option: ");
         }
-
-
         /// <summary>
         /// Writeline and readline returning a cartype
         /// </summary>
@@ -274,18 +286,57 @@ namespace CarSystem.View
                 switch (InputInt("Please choose an option: ", "Wrong input"))
                 {
                     case 1:
-                        return CarType.Almindelig;
+                        if (_almindelig.Count() < _almindeligMax)
+                        {
+                            return CarType.Almindelig;
+                        }
+                        else
+                        {
+                            Console.WriteLine("There are no more spots for a normal car");
+                            Console.ReadKey();
+                            break;
+                        }
                     case 2:
-                        return CarType.Handicap;
+                        if (_handicap.Count() < _handicapMax)
+                        {
+                            return CarType.Handicap;
+                        }
+                        else
+                        {
+                            Console.WriteLine("There are no more spots for a handicap car");
+                            Console.ReadKey();
+                            break;
+                        }
                     case 3:
-                        return CarType.Bus;
+                        if (_bus.Count() < _busMax)
+                        {
+                            return CarType.Bus;
+                        }
+                        else
+                        {
+                            Console.WriteLine("There are no more spots for a bus");
+                            Console.ReadKey();
+                            break;
+                        }
                     case 4:
-                        return CarType.Else;
+                        if (_else.Count() < _elseMax)
+                        {
+                            return CarType.Else;
+                        }
+                        else
+                        {
+                            Console.WriteLine("There are no more spots for other cars");
+                            Console.ReadKey();
+                            break;
+                        }
                     default:
                         break;
                 }
             } while (true);
         }
+
+
+
 
 
         /// <summary>
@@ -296,6 +347,7 @@ namespace CarSystem.View
         /// <exception cref="Exception"></exception>
         public Car FindCarPlate(string? carName)
         {
+
             if (carName != null)
             {
                 return _cars.First(x => x.LicensePlate == carName);
@@ -324,10 +376,6 @@ namespace CarSystem.View
             }
         }
 
-        public void CreateParkingSpace()
-        {
-            throw new NotImplementedException();
-        }
 
 
 
