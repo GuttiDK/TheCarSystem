@@ -16,7 +16,14 @@ namespace CarSystem.View
 {
     public class Program
     {
-        public static void Main(string[] args)
+
+
+
+        /// <summary>
+        /// Main method
+        /// </summary>
+        /// <param name="args"></param>
+        public static void Main()
         {
             var services1 = new ServiceCollection()
             .AddSingleton<ICarParking, CarMethods>()
@@ -26,8 +33,8 @@ namespace CarSystem.View
             .AddSingleton<ICarWash, CarMethods>()
             .BuildServiceProvider();
 
-            CarParking carParking = new CarParking(services1.GetRequiredService<ICarParking>());
-            CarsWash carsWash = new CarsWash(services2.GetRequiredService<ICarWash>());
+            CarParking carParking = new(services1.GetRequiredService<ICarParking>());
+            CarsWash carsWash = new(services2.GetRequiredService<ICarWash>());
 
             bool runTime = true;
             while (runTime == true)
@@ -72,6 +79,10 @@ namespace CarSystem.View
         }
 
 
+        /// <summary>
+        /// Prints all the cars in the parking lot
+        /// </summary>
+        /// <param name="carParking"></param>
         public static void PrintCars(CarParking carParking)
         {
             bool runtime = true;
@@ -125,6 +136,7 @@ namespace CarSystem.View
             }
 
         }
+
 
 
     }

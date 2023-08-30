@@ -11,12 +11,10 @@ namespace CarSystem.BLL
 {
     public class CarParking
     {
-        private readonly string _name;
         private readonly ICarParking _repo;
 
         public CarParking(ICarParking repo)
         {
-            _name = "CarSystem";
             _repo = repo;
         }
 

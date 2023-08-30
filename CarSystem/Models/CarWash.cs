@@ -20,30 +20,30 @@ namespace CarSystem.Models
 
     public abstract class CarWash 
     {
+        private static int _idCounter = 1;
         public int Id { get; set; }
         public string Name { get; set; }
         public Car CurrentVehicle { get; set; }
         public decimal Price { get; set; }
-        public List<Wash> ActiveWash { get; set; } = new List<Wash>();
+        public WashStatus Status { get; set; }
 
-    public CarWash(int id, string name, Car car)
+        public CarWash(string name, Car car)
         {
-            Id = id;
+            Id = _idCounter++;
             Name = name;
             CurrentVehicle = car;
         }
     }
 
-
-    public class Wash
+    public class StartWash : CarWash
     {
-        public Car CurrentVehicle { get; set; }
-        public WashStatus Status { get; set; }
-
-    public Wash(Car currentVehicle, WashStatus status)
+        public StartWash(string name, Car car) : base(name, car)
         {
-            CurrentVehicle = currentVehicle;
-            Status = status;
+            Price = 50;
+            car.WashPrice = Price;
+            car.IsParked = false;
+            car.UnderWash = true;
+            Status = WashStatus.Vasker;
         }
     }
 
