@@ -8,5 +8,8 @@ namespace CarSystem.Data
 {
     public interface ICarWash
     {
+
+        // Create car wash
+        public void CreateCarWash();
     }
 }

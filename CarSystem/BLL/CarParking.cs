@@ -19,16 +19,34 @@ namespace CarSystem.BLL
         }
 
 
+        /// <summary>
+        /// Prints the menu
+        /// </summary>
         public void CarSystemMenu()
         {
             _repo.CarSystemMenu();
         }
 
+
+        /// <summary>
+        /// Changes the prices
+        /// </summary>
+        public void ChangePrices()
+        {
+            _repo.ChangePrices();
+        }
+
+        /// <summary>
+        /// Sorts the payment
+        /// </summary>
         public void Pay()
         {
             _repo.Pay();
         }
 
+        /// <summary>
+        /// Creates parking spots
+        /// </summary>
         public void CreateParkingSpace()
         {
             _repo.CreateParkingSpace();
@@ -58,6 +76,10 @@ namespace CarSystem.BLL
         public void ParkingSpots()
         {
             _repo.GetParkingSpots();
+        }
+        public void GetAllCars()
+        {
+            _repo.GetAllCars();
         }
 
 

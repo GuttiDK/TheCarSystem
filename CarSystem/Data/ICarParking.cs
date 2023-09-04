@@ -18,12 +18,19 @@ namespace CarSystem.Data
         // Pay
         public void Pay();
 
+        // Prices
+        public void ChangePrices();
+
         // Get parking spots
         public void GetAlmindeligSpot();
         public void GetHandicapSpot();
         public void GetBusSpot();
         public void GetElseSpot();
         public void GetParkingSpots();
+
+        // Print cars
+        public void GetAllCars();
+
 
         // Find cars
 

@@ -50,6 +50,7 @@ namespace CarSystem.View
                             carParking.CreateParkingSpace();
                             break;
                         case ConsoleKey.W:
+                            carsWash.CreateCarWash();
                             break;
                         case ConsoleKey.S:
                             PrintCars(carParking);
@@ -57,12 +58,13 @@ namespace CarSystem.View
                         case ConsoleKey.O:
                             break;
                         case ConsoleKey.B:
+                            carParking.ChangePrices();
                             break;
                         case ConsoleKey.R:
                             carParking.Pay();
                             Console.ReadKey();
                             break;
-                        case ConsoleKey.X:
+                        case ConsoleKey.D0:
                             runTime = false;
                             break;
                         default:
@@ -96,6 +98,7 @@ namespace CarSystem.View
                 Console.WriteLine("| h = Handicap                     |");
                 Console.WriteLine("| b = Bus                          |");
                 Console.WriteLine("| e = Else                         |");
+                Console.WriteLine("| c = Cars                         |");
                 Console.WriteLine("|                                  |");
                 Console.WriteLine("| You can see all by pressing:     |");
                 Console.WriteLine("| 5 = All                          |");
@@ -123,6 +126,10 @@ namespace CarSystem.View
                     case ConsoleKey.E:
                         Console.WriteLine("\nCars in the parking lot:");
                         carParking.GetElseSpot();
+                        break;
+                    case ConsoleKey.C:
+                        Console.WriteLine("\nAll the cars:");
+                        carParking.GetAllCars();
                         break;
                     case ConsoleKey.D5:
                         carParking.ParkingSpots();

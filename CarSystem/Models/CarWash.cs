@@ -41,7 +41,6 @@ namespace CarSystem.Models
         {
             Price = 50;
             car.WashPrice = Price;
-            car.IsParked = false;
             car.UnderWash = true;
             Status = WashStatus.Vasker;
         }

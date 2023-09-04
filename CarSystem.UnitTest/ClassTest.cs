@@ -14,8 +14,8 @@ namespace CarSystem.UnitTest
             cars.Add(new Car(car.LicensePlate, car.Type));
 
             List<AlmindeligSpot> almindelig = new();
-            AlmindeligSpot almindeligSpot = new("P", car);
-            almindelig.Add(new AlmindeligSpot(almindeligSpot.Name, almindeligSpot.CurrentVehicle));
+            AlmindeligSpot almindeligSpot = new("P", 150, car);
+            almindelig.Add(new AlmindeligSpot(almindeligSpot.Name, 150, almindeligSpot.CurrentVehicle));
 
             // Act
             string actual = expected.LicensePlate;

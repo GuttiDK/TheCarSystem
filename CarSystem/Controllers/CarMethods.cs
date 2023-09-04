@@ -42,10 +42,20 @@ namespace CarSystem.Controllers
         readonly List<BusSpot> _bus;
         readonly List<ElseSpot> _else;
 
+        /// <summary
+        /// List for prices
+        /// </summary>
+        decimal _almindeligPrice;
+        decimal _handicapPrice;
+        decimal _busPrice;
+        decimal _elsePrice;
+
+        decimal _carwashPrice;
+
         /// <summary>
         /// Lists for carwash
         /// </summary>
-        readonly List<CarsWash> _carwash;
+        readonly List<StartWash> _carwash;
 
 
 
@@ -60,17 +70,94 @@ namespace CarSystem.Controllers
             _bus = new List<BusSpot>();
             _else = new List<ElseSpot>();
 
+            // Prices for parking spots
+            _almindeligPrice = 100;
+            _handicapPrice = 50;
+            _busPrice = 150;
+            _elsePrice = 200;
+
+            _carwashPrice = 300;
+
             // Lists for carwash
-            _carwash = new List<CarsWash>();
+            _carwash = new List<StartWash>();
 
             // Lists for parking spots
             _cars = new List<Car>();
 
             // Counter for ID
             _idCounter++;
+
+
+        }
+
+        public void ChangePrices()
+        {
+            bool runtime = true;
+            while (runtime == true)
+            {
+                Console.Clear();
+                Console.WriteLine($"Current prices:\nAlmindelig: {_almindeligPrice:C}\nHandicap: {_handicapPrice:C}\nBus: {_busPrice:C}\nElse: {_elsePrice:C}\nCarwash: {_carwashPrice:C}");
+                Console.WriteLine("----------------------------------");
+                Console.Write("1. Change prices\n2. Exit\nPlease choose an option: ");
+                var input = Console.ReadKey();
+                switch (input.Key)
+                {
+                    case ConsoleKey.D1:
+                        ChangePrice();
+                        break;
+                    case ConsoleKey.D2:
+                        runtime = false;
+                        break;
+                    default:
+                        Console.WriteLine("Wrong input");
+                        break;
+                }
+            }
         }
 
 
+        public void ChangePrice()
+        {
+            bool runtime = true;
+            while (runtime == true)
+            {
+                Console.Clear();
+                Console.WriteLine("1. Almindelig");
+                Console.WriteLine("2. Handicap");
+                Console.WriteLine("3. Bus");
+                Console.WriteLine("4. Else");
+                Console.WriteLine("5. Carwash");
+                Console.WriteLine("6. Exit");
+                Console.WriteLine("----------------------------------");
+                Console.Write("Choose a price to change: ");
+                var input = Console.ReadKey();
+                switch (input.Key)
+                {
+                    case ConsoleKey.D1:
+                        _almindeligPrice = InputDecimal("\nNew price for normal spot: ", "Wrong input");
+                        break;
+                    case ConsoleKey.D2:
+                        _handicapPrice = InputDecimal("\nNew price for handicap spot: ", "Wrong input");
+
+                        break;
+                    case ConsoleKey.D3:
+                        _busPrice = InputDecimal("\nNew price for bus spot: ", "Wrong input");
+                        break;
+                    case ConsoleKey.D4:
+                        _elsePrice = InputDecimal("\nNew price for else spot: ", "Wrong input");
+                        break;
+                    case ConsoleKey.D5:
+                        _carwashPrice = InputDecimal("\nNew price for carwash: ", "Wrong input");
+                        break;
+                    case ConsoleKey.D6:
+                        runtime = false;
+                        break;
+                    default:
+                        Console.WriteLine("Wrong input");
+                        break;
+                }
+            }
+        }
 
         /// <summary>
         /// Prints information about the 'Almindelig' spots.
@@ -86,7 +173,7 @@ namespace CarSystem.Controllers
                 Console.WriteLine($"Available parking spots: {_almindelig.Count}/{_almindeligMax - _almindelig.Count}");
                 foreach (var car in _almindelig)
                 {
-                    Console.WriteLine($"Licenseplate: {car.CurrentVehicle.LicensePlate} - Type: {car.CurrentVehicle.Type} - Price: {car.CurrentVehicle.TotalPrice} - {car.CurrentVehicle.ParkingPrice} - {car.Price} - ParkingID {car.Name} - CarID: {car.CurrentVehicle.Id} Parking: {car.IsOccupied} - {car.CurrentVehicle.IsParked}");
+                    Console.WriteLine($"Spot/ID: {car.Name}/{car.CurrentVehicle.Id} - Timestamp: {car.CurrentVehicle.ArrivalTime.ToShortDateString()} - Licenseplate: {car.CurrentVehicle.LicensePlate} - Type: {car.CurrentVehicle.Type} - Parking: {car.CurrentVehicle.IsParked} - Price: {car.CurrentVehicle.TotalPrice:C}");
                 }
             }
             Console.ReadKey();
@@ -102,7 +189,7 @@ namespace CarSystem.Controllers
                 Console.WriteLine($"Available parking spots: {_handicap.Count}/{_handicapMax - _handicap.Count}");
                 foreach (var car in _handicap)
                 {
-                    Console.WriteLine($"Licenseplate: {car.CurrentVehicle.LicensePlate} - Type: {car.CurrentVehicle.Type} - Price: {car.CurrentVehicle.TotalPrice} - {car.CurrentVehicle.ParkingPrice} - {car.Price} - ParkingID {car.Name} - CarID: {car.CurrentVehicle.Id} Parking: {car.IsOccupied} - {car.CurrentVehicle.IsParked}");
+                    Console.WriteLine($"Spot/ID: {car.Name}/{car.CurrentVehicle.Id} - Timestamp: {car.CurrentVehicle.ArrivalTime.ToShortDateString()} - Licenseplate: {car.CurrentVehicle.LicensePlate} - Type: {car.CurrentVehicle.Type} - Parking: {car.CurrentVehicle.IsParked} - Price: {car.CurrentVehicle.TotalPrice:C}");
                 }
             }
             Console.ReadKey();
@@ -118,7 +205,7 @@ namespace CarSystem.Controllers
                 Console.WriteLine($"Available parking spots: {_bus.Count}/{_busMax - _bus.Count}");
                 foreach (var car in _bus)
                 {
-                    Console.WriteLine($"Licenseplate: {car.CurrentVehicle.LicensePlate} - Type: {car.CurrentVehicle.Type} - Price: {car.CurrentVehicle.TotalPrice} - {car.CurrentVehicle.ParkingPrice} - {car.Price} - ParkingID {car.Name} - CarID: {car.CurrentVehicle.Id} Parking: {car.IsOccupied} - {car.CurrentVehicle.IsParked}");
+                    Console.WriteLine($"Spot/ID: {car.Name}/{car.CurrentVehicle.Id} - Timestamp: {car.CurrentVehicle.ArrivalTime.ToShortDateString()} - Licenseplate: {car.CurrentVehicle.LicensePlate} - Type: {car.CurrentVehicle.Type} - Parking: {car.CurrentVehicle.IsParked} - Price: {car.CurrentVehicle.TotalPrice:C}");
                 }
             }
             Console.ReadKey();
@@ -134,7 +221,24 @@ namespace CarSystem.Controllers
                 Console.WriteLine($"Available parking spots: {_else.Count}/{_elseMax - _else.Count}");
                 foreach (var car in _else)
                 {
-                    Console.WriteLine($"Licenseplate: {car.CurrentVehicle.LicensePlate} - Type: {car.CurrentVehicle.Type} - Price: {car.CurrentVehicle.TotalPrice} - {car.CurrentVehicle.ParkingPrice} - {car.Price} - ParkingID {car.Name} - CarID: {car.CurrentVehicle.Id} Parking: {car.IsOccupied} - {car.CurrentVehicle.IsParked}");
+                    Console.WriteLine($"Spot/ID: {car.Name}/{car.CurrentVehicle.Id} - Timestamp: {car.CurrentVehicle.ArrivalTime.ToShortDateString()} - Licenseplate: {car.CurrentVehicle.LicensePlate} - Type: {car.CurrentVehicle.Type} - Parking: {car.CurrentVehicle.IsParked} - Price: {car.CurrentVehicle.TotalPrice:C}");
+                }
+            }
+            Console.ReadKey();
+        }
+
+        public void GetAllCars()
+        {
+            if (_cars.Count != 0)
+            {
+                Console.WriteLine($"There are no cars in the system.");
+            }
+            else
+            {
+                Console.WriteLine($"Available cars: {_cars.Count}");
+                foreach (var car in _cars)
+                {
+                    Console.WriteLine($"ID: {car.Id} - Timestamp: {car.ArrivalTime.ToShortDateString()} - Licenseplate: {car.LicensePlate} - Type: {car.Type} - Total Price: {car.TotalPrice:C} - Parking: {car.ParkingPrice:C} - Wash: {car.WashPrice:C} - Parking: {car.IsParked} - Wash: {car.UnderWash}");
                 }
             }
             Console.ReadKey();
@@ -180,6 +284,7 @@ namespace CarSystem.Controllers
         }
 
 
+
         // This method is the to show all the cars in the carwash
         public void GetCarWashCarsStatus()
         {
@@ -198,6 +303,7 @@ namespace CarSystem.Controllers
         }
 
 
+
         /// <summary>
         /// Her opretter den en ny bil og tilføjer den til en parkeringsplads
         /// </summary>
@@ -212,19 +318,19 @@ namespace CarSystem.Controllers
             switch (car.Type)
             {
                 case CarType.Almindelig:
-                    _almindelig.Add(new AlmindeligSpot(spotId, car));
+                    _almindelig.Add(new AlmindeligSpot(spotId, _almindeligPrice, car));
                     break;
 
                 case CarType.Handicap:
-                    _handicap.Add(new HandicapSpot(spotId, car));
+                    _handicap.Add(new HandicapSpot(spotId, _handicapPrice, car));
                     break;
 
                 case CarType.Bus:
-                    _bus.Add(new BusSpot(spotId, car));
+                    _bus.Add(new BusSpot(spotId, _busPrice, car));
                     break;
 
                 case CarType.Else:
-                    _else.Add(new ElseSpot(spotId, car));
+                    _else.Add(new ElseSpot(spotId, _elsePrice, car));
                     break;
                 default:
                     break;
@@ -237,41 +343,20 @@ namespace CarSystem.Controllers
         /// <param></param>
         public void CreateCarWash()
         {
-            switch (InputInt("1 = Create new carwash\n2 = Add car to carwash", "Wrong input"))
+            Car car = new(InputString("\nInput your licenseplate: "), CreateSpotMenu())
             {
-                case 1:
-                    if (_carwash.Count == _carwashMax)
-                    {
-                        Console.WriteLine("The carwash is full");
-                        Console.ReadKey();
-                        break;
-                    }
-                    else
-                    {
-                        _ = new Car(InputString("\nInput your licenseplate: "), CreateSpotMenu());
-                    }
+                UnderWash = true
+            };
+            string spotId = "CW" + _idCounter++;
+            switch (car.Type)
+            {
+                case CarType.Almindelig:
+                    _carwash.Add(new StartWash(spotId, car));
                     break;
-                case 2:
-                    if (_carwash.Count == _carwashMax)
-                    {
-                        Console.WriteLine("The carwash is full");
-                        Console.ReadKey();
-                        break;
-                    }
-                    else
-                    {
-                        var test = FindCarPlate(InputString("Input your licenseplate: "));
-                        if (test != null)
-                        {
-                            Console.WriteLine("Car added to carwash");
-                            Console.ReadKey();
-                        }
-                        else
-                        {
-                            Console.WriteLine("Car not found");
-                            Console.ReadKey();
-                        }
-                    }
+                case CarType.Handicap:
+                    _carwash.Add(new StartWash(spotId, car));
+                    break;
+                default:
                     break;
             }
         }
@@ -425,7 +510,7 @@ namespace CarSystem.Controllers
             Console.WriteLine("| r = Pay for car                  |");
             Console.WriteLine("|                                  |");
             Console.WriteLine("| You can leave by following:      |");
-            Console.WriteLine("| x = Exit                         |");
+            Console.WriteLine("| 0 = Exit                         |");
             Console.WriteLine("|----------------------------------|");
             Console.Write("Please choose an option: ");
         }
@@ -514,7 +599,7 @@ namespace CarSystem.Controllers
         /// <param name="promptMessage">Message displayed to prompt the user for input.</param>
         /// <param name="errorMessage">Message displayed when the user provides an invalid input. If null, a default message will be used.</param>
         /// <returns>The user's input as an integer.</returns>
-        public int InputInt(string promptMessage, string errorMessage)
+        public int InputInt(string promptMessage, string? errorMessage)
         {
             errorMessage ??= "Wrong input";  // If errorMessage is null, use "Wrong input" as the default
             while (true)
@@ -522,7 +607,6 @@ namespace CarSystem.Controllers
                 Console.Write(promptMessage);
                 if (int.TryParse(Console.ReadLine(), out int result))
                     return result;
-
                 Console.WriteLine(errorMessage);
             }
         }
@@ -534,7 +618,7 @@ namespace CarSystem.Controllers
         /// <param name="promptMessage">Message displayed to prompt the user for input.</param>
         /// <param name="errorMessage">Message displayed when the user provides an invalid input. If null, a default message will be used.</param>
         /// <returns>The user's input as a decimal.</returns>
-        public decimal InputDecimal(string promptMessage, string errorMessage)
+        public decimal InputDecimal(string promptMessage, string? errorMessage)
         {
             errorMessage ??= "Wrong input";  // If errorMessage is null, use "Wrong input" as the default
             while (true)
@@ -542,7 +626,6 @@ namespace CarSystem.Controllers
                 Console.Write(promptMessage);
                 if (decimal.TryParse(Console.ReadLine(), out decimal result))
                     return result;
-
                 Console.WriteLine(errorMessage);
             }
         }
