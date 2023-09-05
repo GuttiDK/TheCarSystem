@@ -1,31 +1,43 @@
-# TheCarSystem Projekt
 
-## Forfatter
+# The Car System
+
+The Car System is a console application that simulates a car parking and washing system. It allows users to park their cars, wash them, and pay for these services.
+
+## The Maker
+
 GuttiDK / Christian CH
 
-## Beskrivelse
-TheCarSystem er et Console-projekt designet til at være et parking og bilvask system. Dette er den første del af projektet, og flere funktioner vil blive tilføjet i fremtidigen.
+## Features
 
-## Changelog - (Update Startup)
+- **Parking System**: Allows users to park their cars in different types of spots (normal, handicap, bus, and other). The system keeps track of the number of available spots and their prices.
+- **Car Wash System**: Allows users to wash their cars. The system keeps track of the number of available car wash spots and their prices.
+- **Payment System**: Allows users to pay for parking and car washing services.
+- **Status Check**: Allows users to check the status of parking spots and car wash spots.
 
-Tilføjet alle de første nødvendige mapper og filer til projektet.
+## Updates
 
-## Metodebeskrivelser
+**Version 1.0.1** (06/09/2023)
+- Bug fixes and performance improvements.
+- Updated the parking system to support more types of vehicles.
+- Improved the user interface for easier navigation.
 
+**Version 1.0.0** (21/08/2023)
+- Initial release of The Car System.
+- Features include Parking System, Car Wash System, Payment System, and Status Check.
 
 # Bugs & Known Bugs and Bug Reporting
-Vi arbejder konstant på at forbedre denne applikation. Hvis du støder på nogen bugs eller fejl, bedes du rapportere dem til os.
+We are constantly working to improve this application. If you encounter any bugs or errors, please report them to us.
 
 ## Contact Info
-**Telefon nr:** +45 28 78 34 14  
-**Mail:** [GuttiDK@gmail.com](mailto:GuttiDK@gmail.com)
+**Phone number:** +45 28 78 34 14  
+**Email:** [GuttiDK@gmail.com](mailto:GuttiDK@gmail.com)
 
-## Installation
+## How to Use
 
-1. Klon dette repository til din lokale maskine.
-2. Åbn solutionen i Visual Studio.
-3. Byg og kør programmet.
+1. Clone the repository to your local machine.
+2. Open the solution in Visual Studio.
+3. Run the application.
 
-## Licens
+## License
 
-Dette projekt er licenseret under MIT licensen. Se `LICENSE` filen for yderligere detaljer.
+This project is licensed under the MIT license. See the `LICENSE` file for further details.
