@@ -31,9 +31,9 @@ namespace CarSystem.BLL
         /// <summary>
         /// Changes the prices
         /// </summary>
-        public void ChangePrices()
+        public void ChangeMenu()
         {
-            _repo.ChangePrices();
+            _repo.ChangeMenu();
         }
 
         /// <summary>
@@ -57,49 +57,20 @@ namespace CarSystem.BLL
         /// <summary>
         /// Tager imod parkeringspladser
         /// </summary>
-        public void GetAlmindeligSpot()
+        public void PrintCars()
         {
-            _repo.GetAlmindeligSpot();
-        }
-        public void GetHandicapSpot()
-        {
-            _repo.GetHandicapSpot();
-        }
-        public void GetBusSpot()
-        {
-            _repo.GetBusSpot();
-        }
-        public void GetElseSpot()
-        {
-            _repo.GetElseSpot();
-        }
-        public void ParkingSpots()
-        {
-            _repo.GetParkingSpots();
-        }
-        public void GetAllCars()
-        {
-            _repo.GetAllCars();
+            _repo.PrintCars();
         }
 
 
-        /// <summary>
-        /// Inputs a value and returns it
-        /// </summary>
-        /// <param name="message"></param>
-        /// <returns></returns>
-        public string InputString(string message)
+        public void CreateCarWash()
         {
-            return _repo.InputString(message);
-        }
-        public int InputInt(string text, string error)
-        {
-            return _repo.InputInt(text, error);
-        }
-        public decimal InputDecimal(string text, string error)
-        {
-            return _repo.InputDecimal(text, error);
+            _repo.CreateCarWash();
         }
 
+        public void GetCarWash()
+        {
+            _repo.GetCarWash();
+        }
     }
 }

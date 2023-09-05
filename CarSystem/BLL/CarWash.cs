@@ -21,6 +21,11 @@ namespace CarSystem.BLL
         {
             _repo.CreateCarWash();
         }
+
+        public void GetCarWash()
+        {
+            _repo.GetCarWash();
+        }
     }
 
 }

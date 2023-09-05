@@ -12,7 +12,7 @@ namespace CarSystem.Models
         Almindelig,
         Handicap,
         Bus,
-        Else
+        Other
     }
 
     public abstract class ParkingSpot
@@ -64,17 +64,17 @@ namespace CarSystem.Models
         public BusSpot(string name, decimal price, Car car) : base(name, price, car)
         {
             Type = ParkingType.Bus;
-            Price = 250;
+            Price = price;
             IsOccupied = true;
             car.ParkingPrice = Price;
         }
     }
 
-    public class ElseSpot : ParkingSpot
+    public class OtherSpot : ParkingSpot
     {
-        public ElseSpot(string name, decimal price, Car car) : base(name, price, car)
+        public OtherSpot(string name, decimal price, Car car) : base(name, price, car)
         {
-            Type = ParkingType.Else;
+            Type = ParkingType.Other;
             Price = price;
             IsOccupied = true;
             car.ParkingPrice = Price;

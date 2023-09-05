@@ -11,5 +11,8 @@ namespace CarSystem.Data
 
         // Create car wash
         public void CreateCarWash();
+
+        // Get car wash
+        public void GetCarWash();
     }
 }
