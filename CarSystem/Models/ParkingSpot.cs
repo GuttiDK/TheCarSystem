@@ -12,7 +12,7 @@ namespace CarSystem.Models
         Almindelig,
         Handicap,
         Bus,
-        Else
+        Other
     }
 
     public abstract class ParkingSpot
@@ -28,20 +28,21 @@ namespace CarSystem.Models
 
 
 
-        public ParkingSpot(string name, Car car)
+        public ParkingSpot(string name, decimal price, Car car)
         {
             Id = _idCounter++;
             Name = name;
             CurrentVehicle = car;
+            Price = price;
         }
     }
 
     public class AlmindeligSpot : ParkingSpot
     {
-        public AlmindeligSpot(string name, Car car) : base(name, car)
+        public AlmindeligSpot(string name, decimal price, Car car) : base(name, price, car)
         {
             Type = ParkingType.Almindelig;
-            Price = 50;
+            Price = price;
             IsOccupied = true;
             car.ParkingPrice = Price;
         }
@@ -49,10 +50,10 @@ namespace CarSystem.Models
 
     public class HandicapSpot : ParkingSpot
     {
-        public HandicapSpot(string name, Car car) : base(name, car)
+        public HandicapSpot(string name, decimal price, Car car) : base(name, price, car)
         {
             Type = ParkingType.Handicap;
-            Price = 150;
+            Price = price;
             IsOccupied = true;
             car.ParkingPrice = Price;
         }
@@ -60,21 +61,21 @@ namespace CarSystem.Models
 
     public class BusSpot : ParkingSpot
     {
-        public BusSpot(string name, Car car) : base(name, car)
+        public BusSpot(string name, decimal price, Car car) : base(name, price, car)
         {
             Type = ParkingType.Bus;
-            Price = 250;
+            Price = price;
             IsOccupied = true;
             car.ParkingPrice = Price;
         }
     }
 
-    public class ElseSpot : ParkingSpot
+    public class OtherSpot : ParkingSpot
     {
-        public ElseSpot(string name, Car car) : base(name, car)
+        public OtherSpot(string name, decimal price, Car car) : base(name, price, car)
         {
-            Type = ParkingType.Else;
-            Price = 100;
+            Type = ParkingType.Other;
+            Price = price;
             IsOccupied = true;
             car.ParkingPrice = Price;
         }

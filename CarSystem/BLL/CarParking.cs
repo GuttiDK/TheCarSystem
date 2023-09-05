@@ -19,16 +19,34 @@ namespace CarSystem.BLL
         }
 
 
+        /// <summary>
+        /// Prints the menu
+        /// </summary>
         public void CarSystemMenu()
         {
             _repo.CarSystemMenu();
         }
 
+
+        /// <summary>
+        /// Changes the prices
+        /// </summary>
+        public void ChangeMenu()
+        {
+            _repo.ChangeMenu();
+        }
+
+        /// <summary>
+        /// Sorts the payment
+        /// </summary>
         public void Pay()
         {
             _repo.Pay();
         }
 
+        /// <summary>
+        /// Creates parking spots
+        /// </summary>
         public void CreateParkingSpace()
         {
             _repo.CreateParkingSpace();
@@ -39,45 +57,20 @@ namespace CarSystem.BLL
         /// <summary>
         /// Tager imod parkeringspladser
         /// </summary>
-        public void GetAlmindeligSpot()
+        public void PrintCars()
         {
-            _repo.GetAlmindeligSpot();
-        }
-        public void GetHandicapSpot()
-        {
-            _repo.GetHandicapSpot();
-        }
-        public void GetBusSpot()
-        {
-            _repo.GetBusSpot();
-        }
-        public void GetElseSpot()
-        {
-            _repo.GetElseSpot();
-        }
-        public void ParkingSpots()
-        {
-            _repo.GetParkingSpots();
+            _repo.PrintCars();
         }
 
 
-        /// <summary>
-        /// Inputs a value and returns it
-        /// </summary>
-        /// <param name="message"></param>
-        /// <returns></returns>
-        public string InputString(string message)
+        public void CreateCarWash()
         {
-            return _repo.InputString(message);
-        }
-        public int InputInt(string text, string error)
-        {
-            return _repo.InputInt(text, error);
-        }
-        public decimal InputDecimal(string text, string error)
-        {
-            return _repo.InputDecimal(text, error);
+            _repo.CreateCarWash();
         }
 
+        public void GetCarWash()
+        {
+            _repo.GetCarWash();
+        }
     }
 }

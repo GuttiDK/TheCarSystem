@@ -18,19 +18,17 @@ namespace CarSystem.Data
         // Pay
         public void Pay();
 
-        // Get parking spots
-        public void GetAlmindeligSpot();
-        public void GetHandicapSpot();
-        public void GetBusSpot();
-        public void GetElseSpot();
-        public void GetParkingSpots();
+        // Prices
+        public void ChangeMenu();
 
         // Find cars
+        public void PrintCars();
 
 
-        // Input
-        public string InputString(string message);
-        public int InputInt(string text, string error);
-        public decimal InputDecimal(string text, string error);
+        // Create car wash
+        public void CreateCarWash();
+
+        // Get car wash
+        public void GetCarWash();
     }
 }
