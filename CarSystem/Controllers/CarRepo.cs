@@ -18,7 +18,7 @@ namespace CarSystem.Controllers
         /// <summary>
         /// Counter for ID
         /// </summary>
-        int _idCounter;
+        private int _idCounter;
 
         /// <summary>
         /// Max parking spots
@@ -545,7 +545,7 @@ namespace CarSystem.Controllers
             if (!_carwash.Any())
             {
                 Console.WriteLine("\nThere are no cars in the car wash");
-                Console.ReadKey();
+
             }
             else
             {
@@ -559,15 +559,16 @@ namespace CarSystem.Controllers
                 {
                     Console.WriteLine("\nCarwash is not completed yet.");
                     Console.WriteLine($"Car status: {carwash.CurrentVehicle.Status}");
-                    Console.ReadKey();
+
                 }
                 else
                 {
                     _carwash.Remove(carwash);
                     Console.WriteLine($"\nYou have to pay: {carwash.CurrentVehicle.TotalPrice:C}");
-                    Console.ReadKey();
+
                 }
             }
+            Console.ReadKey();
         }
         public void PayForParking()
         {
@@ -595,7 +596,6 @@ namespace CarSystem.Controllers
                         if (!_almindelig.Any())
                         {
                             Console.WriteLine("\nThere are no cars parked in a normal spot");
-                            Console.ReadKey();
                             break;
                         }
                         else
@@ -607,14 +607,15 @@ namespace CarSystem.Controllers
                                 almindelig = _almindelig.FirstOrDefault(x => x.CurrentVehicle.LicensePlate == InputString("\nInput your licenseplate: "));
                             }
                             _almindelig.Remove(almindelig);
+                            Console.WriteLine($"\nYou have to pay: {almindelig.CurrentVehicle.TotalPrice:C}");
                             runtime = false;
                         }
+                        Console.ReadKey();
                         break;
                     case ConsoleKey.D2:
                         if (!_handicap.Any())
                         {
                             Console.WriteLine("\nThere are no cars parked in a handicap spot");
-                            Console.ReadKey();
                             break;
                         }
                         else
@@ -626,14 +627,15 @@ namespace CarSystem.Controllers
                                 handicap = _handicap.FirstOrDefault(x => x.CurrentVehicle.LicensePlate == InputString("\nInput your licenseplate: "));
                             }
                             _handicap.Remove(handicap);
+                            Console.WriteLine($"\nYou have to pay: {handicap.CurrentVehicle.TotalPrice:C}");
                             runtime = false;
                         }
+                        Console.ReadKey();
                         break;
                     case ConsoleKey.D3:
                         if (!_bus.Any())
                         {
                             Console.WriteLine("\nThere are no cars parked in a bus spot");
-                            Console.ReadKey();
                             break;
                         }
                         else
@@ -645,14 +647,15 @@ namespace CarSystem.Controllers
                                 bus = _bus.FirstOrDefault(x => x.CurrentVehicle.LicensePlate == InputString("\nInput your licenseplate: "));
                             }
                             _bus.Remove(bus);
+                            Console.WriteLine($"\nYou have to pay: {bus.CurrentVehicle.TotalPrice:C}");
                             runtime = false;
                         }
+                        Console.ReadKey();
                         break;
                     case ConsoleKey.D4:
                         if (!_other.Any())
                         {
                             Console.WriteLine("\nThere are no cars parked in a other spot");
-                            Console.ReadKey();
                             break;
                         }
                         else
@@ -664,8 +667,10 @@ namespace CarSystem.Controllers
                                 other = _other.FirstOrDefault(x => x.CurrentVehicle.LicensePlate == InputString("\nInput your licenseplate: "));
                             }
                             _other.Remove(other);
+                            Console.WriteLine($"\nYou have to pay: {other.CurrentVehicle.TotalPrice:C}");
                             runtime = false;
                         }
+                        Console.ReadKey();
                         break;
                     case ConsoleKey.D0:
                         runtime = false;
@@ -801,7 +806,8 @@ namespace CarSystem.Controllers
             {
                 Console.Write(promptMessage);
                 if (int.TryParse(Console.ReadLine(), out int result))
-                    return result;
+                    if (result > 0)
+                        return result;
                 Console.WriteLine(errorMessage);
             }
         }
@@ -818,7 +824,8 @@ namespace CarSystem.Controllers
             {
                 Console.Write(promptMessage);
                 if (decimal.TryParse(Console.ReadLine(), out decimal result))
-                    return result;
+                    if (result > 0)
+                        return result;
                 Console.WriteLine(errorMessage);
             }
         }
