@@ -7,6 +7,12 @@ The Car System is a console application that simulates a car parking and washing
 
 GuttiDK / Christian CH
 
+## How to Use
+
+1. Clone the repository to your local machine.
+2. Open the solution in Visual Studio.
+3. Run the application.
+
 ## Features
 
 - **Parking System**: Allows users to park their cars in different types of spots (normal, handicap, bus, and other). The system keeps track of the number of available spots and their prices.
@@ -31,12 +37,6 @@ We are constantly working to improve this application. If you encounter any bugs
 ## Contact Info
 **Phone number:** +45 28 78 34 14  
 **Email:** [GuttiDK@gmail.com](mailto:GuttiDK@gmail.com)
-
-## How to Use
-
-1. Clone the repository to your local machine.
-2. Open the solution in Visual Studio.
-3. Run the application.
 
 ## License
 
