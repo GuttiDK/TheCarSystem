@@ -41,5 +41,3 @@ We are constantly working to improve this application. If you encounter any bugs
 ## License
 
 This project is licensed under the MIT license. See the `LICENSE` file for further details.
-
-
