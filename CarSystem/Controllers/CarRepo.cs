@@ -14,7 +14,7 @@ namespace CarSystem.Controllers
 {
     public class CarRepo : ICarParking, ICarWash
     {
-
+        #region Properties
         /// <summary>
         /// Counter for ID
         /// </summary>
@@ -51,50 +51,56 @@ namespace CarSystem.Controllers
         /// Lists for carwash
         /// </summary>
         readonly List<StartWash> _carwash;
+        #endregion
 
-
-
+        #region Constructor
         /// <summary>
         /// Constructor
         /// </summary>
         public CarRepo()
         {
 
+            #region Counter for ID
             // Counter for ID
             _idCounter++;
+            #endregion
 
+            #region Max for parking spots and carwash
             // Max for parking spots and carwash
             _almindeligMax = 10;
             _handicapMax = 3;
             _busMax = 5;
             _otherMax = 2;
             _carwashMax = 5;
+            #endregion
 
+            #region Prices for parking spots and carwash
             // Prices for parking spots and carwash
             _almindeligPrice = 100;
             _handicapPrice = 50;
             _busPrice = 150;
             _otherPrice = 200;
             _carwashPrice = 300;
+            #endregion
 
+            #region Parking spots
             // Lists for parking spots
             _almindelig = new List<AlmindeligSpot>();
             _handicap = new List<HandicapSpot>();
             _bus = new List<BusSpot>();
             _other = new List<OtherSpot>();
             _parkingSpots = new List<ParkingSpot>();
+            #endregion
 
+            #region CarWash
             // Lists for carwash
             _carwash = new List<StartWash>();
-
+            #endregion
         }
+        #endregion
 
-
-
-        /// <summary>
-        /// Method for changing prices and max
-        /// </summary>
-        /// <param name="text"></param>
+        #region Methods for parking and carwash
+        #region Method for changing prices and max
         public void ChangeMenu()
         {
             bool runtime = true;
@@ -217,12 +223,9 @@ namespace CarSystem.Controllers
                 }
             }
         }
+        #endregion
 
-
-
-        /// <summary>
-        /// Prints information about all parking spots.
-        /// </summary>
+        #region Prints information about all parking spots.
         public void GetParkingSpots()
         {
             Console.Clear();
@@ -356,13 +359,9 @@ namespace CarSystem.Controllers
             }
             Console.ReadKey();
         }
+        #endregion
 
-
-
-        /// <summary>
-        /// Her opretter den en ny bil og tilføjer den til en parkeringsplads
-        /// </summary>
-        /// <param name="car"></param>
+        #region Her opretter den en ny bil og tilføjer den til en parkeringsplads
         public void CreateParkingSpace()
         {
             string spotId = "P" + _idCounter++;
@@ -391,14 +390,9 @@ namespace CarSystem.Controllers
                     break;
             }
         }
+        #endregion
 
-
-
-
-        /// <summary>
-        /// Her opretter den en ny bil eller finder en bil i systemet og tilføjer den til en vask
-        /// </summary>
-        /// <param></param>
+        #region Her opretter den en ny bil eller finder en bil i systemet og tilføjer den til en vask
         public async void CreateCarWash()
         {
             if (_carwash.Count < _carwashMax)
@@ -432,14 +426,9 @@ namespace CarSystem.Controllers
 
             Console.WriteLine($"\nWash completed for the following car: {car.LicensePlate}");
         }
+        #endregion
 
-
-
-        /// <summary>
-        /// Writeline and readline returning a cartype
-        /// </summary>
-        /// <param name="text"></param>
-        /// <returns>list</returns>
+        #region Writeline and readline returning a cartype
         public CarType CreateSpotMenu()
         {
             do
@@ -496,14 +485,9 @@ namespace CarSystem.Controllers
                 }
             } while (true);
         }
+        #endregion
 
-
-
-        /// <summary>
-        /// Paying for parking or washing
-        /// </summary>
-        /// <param name="text"></param>
-        /// <returns>list</returns>
+        #region Paying for parking or washing
         public void Pay()
         {
             bool runtime = true;
@@ -680,12 +664,9 @@ namespace CarSystem.Controllers
                 }
             }
         }
+        #endregion
 
-
-
-        /// <summary>
-        /// Her sender den menupunktet tilbage
-        /// </summary>
+        #region Her sender den menupunktet tilbage
         public void CarSystemMenu()
         {
             Console.Clear();
@@ -772,9 +753,9 @@ namespace CarSystem.Controllers
             }
 
         }
+        #endregion
 
-
-
+        #region Her indsætter du de forskellinge inputs med string, int og decimal
         /// <summary>
         /// Prompter the user for input until a non-empty string is provided.
         /// </summary>
@@ -829,6 +810,7 @@ namespace CarSystem.Controllers
                 Console.WriteLine(errorMessage);
             }
         }
-
+        #endregion
+        #endregion
     }
 }
