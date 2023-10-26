@@ -12,7 +12,7 @@ using CarSystem.Models;
 
 namespace CarSystem.Controllers
 {
-    public class CarRepo : ICarParking, ICarWash
+    public class CarRepository : ICarParking, ICarWash
     {
         #region Properties
         /// <summary>
@@ -57,7 +57,7 @@ namespace CarSystem.Controllers
         /// <summary>
         /// Constructor
         /// </summary>
-        public CarRepo()
+        public CarRepository()
         {
 
             #region Counter for ID
@@ -100,6 +100,7 @@ namespace CarSystem.Controllers
         #endregion
 
         #region Methods for parking and carwash
+
         #region Method for changing prices and max
         public void ChangeMenu()
         {
@@ -414,13 +415,13 @@ namespace CarSystem.Controllers
         public static async Task StartOfWash(Car car)
         {
 
-            await Task.Delay(15000); // Simuler vaskfase 1
+            await Task.Delay(5000); // Simuler vaskfase 1
             car.Status = WashStatus.Vasker;
-            await Task.Delay(15000); // Simuler vaskfase 2
+            await Task.Delay(5000); // Simuler vaskfase 2
             car.Status = WashStatus.Skylning;
-            await Task.Delay(15000); // Simuler vaskfase 3
+            await Task.Delay(5000); // Simuler vaskfase 3
             car.Status = WashStatus.Tørring;
-            await Task.Delay(15000); // Simuler vaskfase 4
+            await Task.Delay(5000); // Simuler vaskfase 4
             car.Status = WashStatus.Afsluttet;
             car.UnderWash = false;
 
@@ -811,6 +812,7 @@ namespace CarSystem.Controllers
             }
         }
         #endregion
+        
         #endregion
     }
 }

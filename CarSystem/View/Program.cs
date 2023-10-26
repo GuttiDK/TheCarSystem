@@ -23,13 +23,13 @@ namespace CarSystem.View
         public static void Main()
         {
             var services1 = new ServiceCollection()
-            .AddSingleton<ICarParking, CarRepo>()
+            .AddSingleton<ICarParking, CarRepository>()
             .BuildServiceProvider();
 
             CarParking carParking = new(services1.GetRequiredService<ICarParking>());
 
             bool runTime = true;
-            while (runTime == true)
+            while (runTime)
             {
                 carParking.CarSystemMenu();
                 try
